@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  form#register(action="#")
+    label Name:
+    input(type="text", name="name")
+    input(type="submit", value="Save")
+
+  script.
+    $(document).ready(function () {
+      $('#register').submit(function(event) {
+        event.preventDefault();
+
+        CommandHandler.createUser({
+          name: this.name.value
+        }).send(function (data) {
+          console.log(data);
+        });   
+      });
+    });
